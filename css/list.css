@@ -1,0 +1,131 @@
+.list-page-wrap{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #fff;
+}
+
+.header{
+	position: relative;
+	top: 0px;
+	width: 100%;
+	min-height: 3rem;
+	z-index: 10;
+	margin-bottom: 1rem;
+	color: #fff;
+	background: red;
+}
+
+.header .nav{
+	position: relative;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	padding-top: 0.5rem;
+}
+
+.header .nav>span{
+	padding: 0.3rem 0.5rem;
+}
+
+.list-container{
+	position: relative;
+	width: 100%;
+	margin-bottom: 3rem;
+}
+
+.list-item{
+	position: relative;
+	min-height: 3rem;
+	padding: 0.2rem;
+	border-bottom: 1px solid #a5a5a5;
+	padding-bottom: 0.5rem;
+}
+.item-noimg-normal{
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+.item-noimg-normal > h5{
+	/*text-align: center;*/
+}
+.item-noimg-normal .item-noimg-normal-info {
+	margin: 0.3rem 0rem;
+	font-size: 1rem;
+}
+.item-normal{
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
+.normal-img-box-wrap{
+	text-align: center;
+}
+
+.item-normal .normal-img-box{
+	position: relative;
+	display: inline-block;
+	margin-top: 0.2rem;
+}
+
+.item-normal .normal-img-box img{
+	width: 9rem;
+	height: 6rem;
+	margin: 0.1rem 0.1rem;
+}
+
+.item-normal .item-normal-info{
+	margin: 0.3rem 0rem;
+	font-size: 1rem;
+}
+
+.list-item >.item-single{
+	position: relative;
+	display: inline-block;
+	padding: 0.2rem 0.1rem;
+}
+
+.list-item >.item-single .item-single-info-box{
+	position: relative;
+	display: inline-block;
+	width: 20rem;
+}
+.list-item >.item-single .item-single-info-box .item-single-info{
+	margin-top: 0.5rem;
+	font-size: 1rem;
+}
+
+.list-item >.item-single .item-single-img-box{
+	position: relative;
+	display: inline-block;
+	width: 9.6rem;
+	height: 6rem;
+	vertical-align: top;
+}
+.list-item >.item-single .item-single-img-box img{
+	width: 9.6rem;
+	height: 100%;
+	height: 6rem;
+}
+
+.list-item >.item-single-adver >.single-b-img-wrap{
+	margin-top: 0.5rem;
+	width: 100%;
+	height: 16rem;
+	text-align: center;
+}
+.list-item >.item-single-adver >.single-b-img-wrap img{
+	width: 30rem;
+	height: 100%;
+}	
+.list-item >.item-single-adver >.item-single-adver-info{
+	margin-top: 0.3rem;
+	font-size: 1rem;
+} 
+
+.more-item{
+	position: relative;
+	text-align: center;
+	font-size: 0.8rem;
+	padding: 0.88rem;
+	color: #5e5e5e;
+}

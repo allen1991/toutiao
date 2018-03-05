@@ -1,0 +1,162 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">  
+    <meta http-equiv="X-UA-Compatible" content=”IE=edge,chrome=1″/>  
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Cache-control" content="max-age=3600">
+    <link rel="stylesheet" href="./css/common.css">  
+    <link rel="stylesheet" href="./css/list.css">  
+    <title>新闻页面列表</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth/32 + "px";
+    </script>
+    
+</head>  
+<body>  
+    <style type="text/css">
+        .gototop{
+            position: fixed;
+            bottom: 1rem;
+            left: 0.5rem;
+            z-index: 1000;
+        }
+        .refresh{
+            position: fixed;
+            bottom: 1rem;
+            right: 0.5rem;
+            z-index: 1000;
+        }
+    </style>
+    
+    <div class="list-page-wrap" id="app">
+        <div class="gototop" @click="goToTop()">  
+            <img src="./top.png" width="20px" height="20px"/>
+        </div>
+        <div class="refresh" @click="refresh()">  
+            
+            <img src="./refresh.png" width="20px" height="20px"/>
+        </div>
+        <div class="header" v-show="groups.length>0">
+            <div class="nav">
+                <span v-for="item in groups">{{item.name}}</span>
+            </div>
+        </div>
+        <div class="list-container">
+           
+            <div class="list-item"  v-for="item in infolist">
+                <!-- 普通无图片 -->
+                <div class="item-noimg-normal" v-show="item.aType==0">
+                    <a @click="clickReadArticle(item)">
+                        <h5 v-bind:title="item.articletitle">
+                            {{item.articletitle}}
+                        </h5>
+                        
+                        <div class="item-noimg-normal-info">
+                            <span>{{item.articleauthor}}</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- 普通三张图片 -->
+                <div class="item-normal" v-show="item.aType==1">
+                    <a  @click="clickReadArticle(item)">
+                        <h5 v-bind:title="item.articletitle">
+                            {{item.articletitle}}
+                        </h5>
+                        <div class="normal-img-box-wrap">
+                            <div class="normal-img-box">
+                                <img v-bind:src="item.articleimg1">
+                                <img v-bind:src="item.articleimg2">
+                                <img v-bind:src="item.articleimg3">
+                            </div>
+                        </div>
+                    
+                        <div class="item-normal-info">
+                            <span>{{item.articleauthor}}</span>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- 普通一张图片 -->
+                <div class="item-single" v-show="item.aType==2">
+                    <a @click="clickReadArticle(item)">
+                        <div class="item-single-info-box">
+                            <h5 v-bind:title="item.articletitle">
+                                {{item.articletitle}}{{item.articletimestamp}}
+                            </h5>
+                            <div class="item-single-info">
+                                <span>{{item.articleauthor}}</span>
+                            </div>
+                        </div>
+
+                        <div class="item-single-img-box">
+                            <img v-bind:src="item.articleimg1?item.articleimg1:item.articleimg2?item.articleimg2:item.articleimg3?item.articleimg3:''">
+                        </div>
+                    </a>
+                </div>
+                <!-- 普通三张图片广告 -->
+                <div class="item-normal" v-show="item.aType==3">
+                    <h5 v-bind:title="item.articletitle">
+                        {{item.articletitle}}
+                    </h5>
+                    <div class="normal-img-box-wrap">
+                        <div class="normal-img-box">
+                            <img src="http://www.ionic.wang/data/news/image/20151031/20151031132303_31039.png">
+                            <img src="http://www.ionic.wang/data/news/image/20151031/20151031132303_31039.png">
+                            <img src="http://www.ionic.wang/data/news/image/20151031/20151031132303_31039.png">
+                        </div>
+                    </div>
+                    <div class="item-normal-info">
+                        <span>广告</span>
+                    </div>
+                </div>
+                <!-- 普通大图一张图片广告 -->
+                <div class="item-single-adver" v-show="item.aType==4">
+                
+                    <h5 v-bind:title="item.articletitle">
+                        {{item.articletitle}}
+                    </h5>
+                    <div class="single-b-img-wrap">
+                        <img src="http://www.ionic.wang/data/news/image/20151031/20151031132303_31039.png">
+                    </div>
+                    <div class="item-single-adver-info">
+                        <span>广告</span>
+                    </div>
+                </div>
+               <!-- 普通一张图片广告 -->
+                <div class="item-single" v-show="item.aType==5">
+                    <div class="item-single-info-box">
+                        <h5 v-bind:title="item.articletitle">
+                            {{item.articletitle}}
+                        </h5>
+                        <div class="item-single-info">
+                            <span>广告</span>
+                        </div>
+                    </div>
+                    <div class="item-single-img-box">
+                        <img src="http://www.ionic.wang/data/news/image/20151031/20151031132303_31039.png">
+                    </div>
+                </div>
+                <div class="more-item" v-show="item.aType==10" @click="getMore()">
+                    刚才阅读到这里，点击查看越多
+                </div>
+            </div>
+            
+            <div class="more-item" v-show="scanmore" @click="getMore()">
+                我要阅读更多信息...
+            </div>
+        </div>
+
+    </div>
+</body>  
+<!-- <script type="text/javascript" src="./../common/js/jquery.js"></script> -->
+<script type="text/javascript" src="./../common/js/vue.min.js"></script>
+<script type="text/javascript" src="./js/axios.js"></script>
+<script type="text/javascript" src="./js/do.js"></script>
+<script type="text/javascript">
+    console.log("axios",axios);
+</script>
+
+</html>  

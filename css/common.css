@@ -1,0 +1,84 @@
+*{margin:0;padding: 0;box-sizing: border-box;font-family:  Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;}
+html,body{font-size: 16px;width: 100%;height:100%;background-color: #fff}
+ul{
+	list-style: none;
+}
+a{text-decoration:none;}
+input:-webkit-autofill {
+	background-color: #fff ;
+}
+input{outline: none}
+.padding02{
+	padding: 0.2rem;
+}
+.hidden{
+  display: none !important;
+}
+body{
+   scrollbar-3dlight-color:#D4D0C8; /*- 最外左 -*/
+   scrollbar-highlight-color:#fff; /*- 左二 -*/
+   scrollbar-face-color:#E4E4E4; /*- 面子 -*/
+   scrollbar-arrow-color:#666; /*- 箭头 -*/
+   scrollbar-shadow-color:#808080; /*- 右二 -*/  
+   scrollbar-darkshadow-color:#D7DCE0; /*- 右一 -*/
+   scrollbar-base-color:#D7DCE0; /*- 基色 -*/
+   scrollbar-track-color:#;/*- 滑道 -*/
+}
+::-webkit-scrollbar  
+{  
+    width: 5px;  
+    height: 5px;  
+    background-color: #6b6b6b;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);  
+    border-radius: 10px;  
+    background-color: #eee;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 5px;  
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.3);  
+    background-color: #555;  
+}  
+
+a:link,a:visited{color:inherit;text-decoration:none;}
+a:hover{color:inherit;}
+
+
+.noborder{
+    border: none !important;
+}
+.mt100{
+    margin-top: 100px !important;
+}
+.mt30{
+    margin-top: 30px !important;
+}
+.mt20{
+    margin-top: 20px !important;
+}
+
+.mt120{
+    margin-top: 120px !important;
+}
+.pd20{
+    padding: 20px !important;
+}
+.pd020{
+    padding: 0px 20px !important;
+}
+
+.txcenter{
+    text-align: center !important;
+}
+.borderlightgray{
+    border:1px solid #bdb2b2 !important;
+    background: #eeeeee;
+}
+
