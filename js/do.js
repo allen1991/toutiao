@@ -20,7 +20,8 @@
 	var LocalUrl = location.href;//该网页url
 	var getListUrl = "/article/Home/article/getmyarticlelist";
 	var getGroupUrl = "/article/Home/article/getgroup";
-	
+		getListUrl = "/article/Home/articleAuth/getArticles?appkey=fs1223434";
+		
 	var artilceprefixurl = "/article/articles/m/";
 	var mockData = [{
 		articleid : "42423942944",
@@ -123,7 +124,7 @@
 				    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
 				},
 	  			//获取列表
-	  			getList : function(data,isfresh){
+	  			getList : function(data,isfresh,moreflag){
 	  				var self = this;
 	  				var userid = self.userid;
 	  				if(typeof data =="object"&&data!=null){
@@ -142,7 +143,13 @@
 	  				request.regularRequest(options,function(res){
 	  					if(res.code==1){
 	  						var data = res.data;
-
+	  						//如果数据返回为空并且查看更多的标志有数值的情况下，添加查看更多标志到数组(并且数组中第一个不为查看更多标志)
+	  						if(data.length<1&&moreflag.length>0){
+	  							
+	  							if(self.infolist.length>0&&self.infolist[0].aType!=10){
+	  								self.infolist = moreflag.concat(self.infolist);
+	  							}
+	  						}
 	  						for(var i in data){
 	  							var item = data[i];
 	  							item.articleurl = artilceprefixurl + item.articleauthorid + "/" + item.articleid+".html";
@@ -240,8 +247,10 @@
 	  					obj.aType=10;//type 10为刚才阅读到这里，点击查看查看更多
 	  					arr.push(obj);
 	  				}
-	  				this.infolist = arr.concat(this.infolist);
-	  				this.getList();
+	  				// this.infolist = arr.concat(this.infolist);
+	  				// this.getList();
+	  				
+	  				this.getList(null,null,arr);
 	  				
 	  			},
 	  			//从localStorage内部取数据
