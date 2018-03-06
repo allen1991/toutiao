@@ -14,7 +14,25 @@
 	z-index: 10;
 	margin-bottom: 1rem;
 	color: #fff;
-	background: red;
+}
+.header .banner{
+	position: relative;
+	height: 16rem;
+	background: #eee;
+}
+.header .banner .banner-img{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+
+}
+.header .banner .banner-img img{
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
 }
 
 .header .nav{

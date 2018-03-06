@@ -32,6 +32,7 @@
     </style>
     
     <div class="list-page-wrap" id="app">
+
         <div class="gototop" @click="goToTop()">  
             <img src="./top.png" width="20px" height="20px"/>
         </div>
@@ -39,8 +40,19 @@
             
             <img src="./refresh.png" width="20px" height="20px"/>
         </div>
-        <div class="header" v-show="groups.length>0">
-            <div class="nav">
+        <div class="header" >
+            <div class="banner">
+                <div class="banner-img">
+                    <img src="./top.png" />
+                </div>
+                <div class="banner-img">
+                    <img src="./refresh.png" />
+                </div>
+                <div class="banner-img">
+                    <img src="./default.jpg" />
+                </div>
+            </div>
+            <div class="nav" v-show="groups.length>0"> 
                 <span v-for="item in groups">{{item.name}}</span>
             </div>
         </div>

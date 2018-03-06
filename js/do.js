@@ -150,6 +150,7 @@
 	  								self.infolist = moreflag.concat(self.infolist);
 	  							}
 	  						}
+	  						
 	  						for(var i in data){
 	  							var item = data[i];
 	  							item.articleurl = artilceprefixurl + item.articleauthorid + "/" + item.articleid+".html";
