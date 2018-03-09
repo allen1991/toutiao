@@ -21,6 +21,7 @@
 	var getListUrl = "/article/Home/article/getmyarticlelist";
 	var getGroupUrl = "/article/Home/article/getgroup";
 		getListUrl = "/article/Home/articleAuth/getArticles?appkey=fs1223434";
+		getBannersUrl = "/article/Home/articleAuth/getBanners?appkey=fs1223434";
 		
 	var artilceprefixurl = "/article/articles/m/";
 	var mockData = [{
@@ -54,10 +55,13 @@
 			    	groups : [],//分组
 			    	maxid : 0,//文章最大id
 			    	minid : 0,//文章最小id
+			    	banners:[{src:"./top.png",jump:"",active:true},{src:"./refresh.png",jump:"",active:false},{src:"./default.jpg",jump:"",active:false}],//图片轮播
+			    	
 			  	},
 			  	methods :  methods,
-
-			  	beforeMount : function(){
+			  	mounted : function(){
+				//beforeMount : function(){
+			  		
 			  		//this.groups = this.getDataFromLocalStorage("groups") || [];
 
 			  		//先从localStorage内部获取短期内的数据
@@ -74,30 +78,99 @@
 			  			try{
 			  				toppx = this.getDataFromLocalStorage("toppx") || 0;
 			  				infolist = this.getDataFromLocalStorage("infolist");
-			  				
+			  				this.banners = this.getDataFromLocalStorage("banners")||this.banners;
+
 			  			}catch(e){
 			  				console.log("e",e);
 			  			}
 			  			this.infolist = infolist;
 			  			this.goToTop(toppx);
 			  		}else{
-
 			  			//判断如果是间隔超过了规定时间，则直接请求列表,如果超过的时间超过一天，则需要把存储在本地localstorage列表数据清除
 				  		//自动获取初始化的列表
 				  		this.getList();
 				  		if(timestamp - lastTime>24*60*60*1000){
 			  				this.removeLocalStorage("infolist");
 			  				this.removeLocalStorage("lasttime");
+			  				this.removeLocalStorage("banners");
 			  			}
 			  		}
-
 			  		this.getGroup();//获取分组
+			  		this.getBanners();//获取轮播图
 			  	}
 			});
 		},
 		//vue的方法
 		vueMethods : function(){
 			return {
+
+				//监听图片轮播
+				addBannerListeners:function(){
+					var self = this;
+					var banner = document.getElementById('banner');
+
+					banner.addEventListener("touchstart", function(e) {
+				　　　　var ev = e||event;
+				　　　　startX = ev.touches[0].clientX;
+				　　　　startY = ev.touches[0].clientY;
+						
+				　　});
+					banner.addEventListener("touchend", function(e) {
+
+				　　　　var ev = e||event;
+						var clientX = ev.changedTouches[0].clientX;
+				　　　　var clientY = ev.changedTouches[0].clientY;
+						if(clientX-startX>50){
+							self.BannerMove(1);
+						}
+						if(startX - clientX>50){
+							self.BannerMove(2);
+						}
+				　　});
+				},
+				//图片滑动
+				BannerMove:function(direction){
+
+					var banners = this.banners;
+					var length = banners.length||0;
+					if(direction==1){
+						for(var i in banners){
+							i = parseInt(i);
+							if(banners[i].active){
+								banners[i].active = false;
+								if(i==0){
+									banners[(length-1)].active=true;
+									break;
+								}else{
+									banners[(i-1)].active=true;
+									break;
+								}
+								
+							}
+						}
+						
+						return;
+					}
+					if(direction==2){
+						for(var i in banners){
+							i = parseInt(i);
+							if(banners[i].active){
+								banners[i].active = false;
+
+								if(i==(length-1)){
+									banners[0].active=true;
+									break;
+								}else{
+									console.log(i+1);
+									banners[(i+1)].active=true;
+									break;
+								}
+							}
+						}
+						
+						return;
+					}
+				},
 				//回到顶部
 				goToTop : function(px){
 					var top = px || 0;
@@ -195,6 +268,22 @@
 	  					}
 	  				},function(err){
 
+	  				});
+	  			},
+	  			//获取轮播图
+	  			getBanners:function(data){
+	  				var self = this;
+	  				var options = {data:data||{},cache:false};
+	  				options.url = getBannersUrl;
+	  				request.regularRequest(options,function(res){
+	  					if(res.code==1){
+	  						var data = res.data;
+	  						self.banners = data||self.banners;
+	  						self.setDataIntoLocalStorage("banners",self.banners);
+	  					}
+	  					self.addBannerListeners();//监听图片轮播
+	  				},function(err){
+	  					self.addBannerListeners();//监听图片轮播
 	  				});
 	  			},
 	  			//获取分组

@@ -147,3 +147,21 @@
 	padding: 0.88rem;
 	color: #5e5e5e;
 }
+.banner-points-wrap{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 1rem;
+    z-index: 200;
+}
+.banner-points-wrap .banner-pointer{
+    position: relative;
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: 0rem 0.25rem;
+    border: 2px solid #fff;
+}
+.banner-points-wrap .banneractive {
+    background: #fff;
+}

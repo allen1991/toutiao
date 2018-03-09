@@ -29,10 +29,11 @@
             right: 0.5rem;
             z-index: 1000;
         }
+        
     </style>
     
     <div class="list-page-wrap" id="app">
-
+        
         <div class="gototop" @click="goToTop()">  
             <img src="./top.png" width="20px" height="20px"/>
         </div>
@@ -41,16 +42,15 @@
             <img src="./refresh.png" width="20px" height="20px"/>
         </div>
         <div class="header" >
-            <div class="banner">
-                <div class="banner-img">
-                    <img src="./top.png" />
+            <div class="banner" id="banner">
+                <div class="banner-img"  v-for="item in banners">
+                    <img v-bind:src="item.src" v-show="item.active"/>
                 </div>
-                <div class="banner-img">
-                    <img src="./refresh.png" />
+                <div class="banner-points-wrap">
+                    <div class="banner-pointer" v-bind:class="item.active?'banneractive':''" v-for="item in banners" >
+                    </div>
                 </div>
-                <div class="banner-img">
-                    <img src="./default.jpg" />
-                </div>
+                
             </div>
             <div class="nav" v-show="groups.length>0"> 
                 <span v-for="item in groups">{{item.name}}</span>
